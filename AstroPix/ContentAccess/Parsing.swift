@@ -78,7 +78,6 @@ struct APODResourceDetail: Decodable {
     let date: Date
     let media_type: APODSupportedMediaType
     let copyright: String?
-    let hdurl: URL? // Present for *most* images (not gauranteed), absent for videos
     let url: URL // Main resource URL for videos, small image resource for images
     let thumbnail_url: URL? // Present only for video resources. Relies on thumbs=true param being set on API query
     
@@ -94,13 +93,7 @@ struct APODResourceDetail: Decodable {
         debugPrint("Parsed info. Title: \(resourceInfo.title) (Media type: \(resourceInfo.media_type))")
         switch resourceInfo.media_type {
         case .image:
-            let imageURL: URL
-            if let validHDUrl = resourceInfo.hdurl {
-                imageURL = validHDUrl
-            } else {
-                imageURL = resourceInfo.url
-            }
-            return APODResourceMetaInfo(title: resourceInfo.title.cleaned(), explanation: resourceInfo.explanation.cleaned(), date: resourceInfo.date, copyright: resourceInfo.copyright?.cleaned(), imageURL: imageURL, videoURL: nil)
+            return APODResourceMetaInfo(title: resourceInfo.title.cleaned(), explanation: resourceInfo.explanation.cleaned(), date: resourceInfo.date, copyright: resourceInfo.copyright?.cleaned(), imageURL: resourceInfo.url, videoURL: nil)
         case .video:
             guard let thumbnailURL = resourceInfo.thumbnail_url else { throw APODJSONParseError.videoMediaTypeWithNoVideoURL }
             return APODResourceMetaInfo(title: resourceInfo.title.cleaned(), explanation: resourceInfo.explanation.cleaned(), date: resourceInfo.date, copyright: resourceInfo.copyright?.cleaned(), imageURL: thumbnailURL, videoURL: resourceInfo.url)
