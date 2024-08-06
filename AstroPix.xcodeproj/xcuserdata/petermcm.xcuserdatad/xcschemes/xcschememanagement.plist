@@ -9,6 +9,29 @@
 			<key>orderHint</key>
 			<integer>0</integer>
 		</dict>
+		<key>AstroPixTests.xcscheme_^#shared#^_</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>1</integer>
+		</dict>
+	</dict>
+	<key>SuppressBuildableAutocreation</key>
+	<dict>
+		<key>285397AF2C5D716D003A6D63</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>285397C02C5D716E003A6D63</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>285397CA2C5D716E003A6D63</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 	</dict>
 </dict>
 </plist>

@@ -8,12 +8,28 @@
 
 /* Begin PBXBuildFile section */
 		285397B42C5D716D003A6D63 /* AstroPixApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 285397B32C5D716D003A6D63 /* AstroPixApp.swift */; };
-		285397B62C5D716D003A6D63 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 285397B52C5D716D003A6D63 /* ContentView.swift */; };
+		285397B62C5D716D003A6D63 /* APODMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 285397B52C5D716D003A6D63 /* APODMainView.swift */; };
 		285397B82C5D716D003A6D63 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 285397B72C5D716D003A6D63 /* Assets.xcassets */; };
 		285397BC2C5D716E003A6D63 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 285397BB2C5D716E003A6D63 /* Preview Assets.xcassets */; };
 		285397C62C5D716E003A6D63 /* AstroPixTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 285397C52C5D716E003A6D63 /* AstroPixTests.swift */; };
 		285397D02C5D716E003A6D63 /* AstroPixUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 285397CF2C5D716E003A6D63 /* AstroPixUITests.swift */; };
 		285397D22C5D716E003A6D63 /* AstroPixUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 285397D12C5D716E003A6D63 /* AstroPixUITestsLaunchTests.swift */; };
+		285397DF2C5D8820003A6D63 /* Networking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 285397DE2C5D8820003A6D63 /* Networking.swift */; };
+		285397E32C5D8BE7003A6D63 /* example1.json in Resources */ = {isa = PBXBuildFile; fileRef = 285397E12C5D8BE7003A6D63 /* example1.json */; };
+		285397E62C5D8C2C003A6D63 /* example2.json in Resources */ = {isa = PBXBuildFile; fileRef = 285397E42C5D8C2C003A6D63 /* example2.json */; };
+		285397E92C5D8C78003A6D63 /* example3.json in Resources */ = {isa = PBXBuildFile; fileRef = 285397E72C5D8C78003A6D63 /* example3.json */; };
+		285398252C5E5916003A6D63 /* Parsing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 285398242C5E5916003A6D63 /* Parsing.swift */; };
+		285398282C5E59A3003A6D63 /* ParsingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 285398272C5E59A3003A6D63 /* ParsingTests.swift */; };
+		2887D3272C6101F500F585A4 /* Caching.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2887D3262C6101F500F585A4 /* Caching.swift */; };
+		2887D32A2C610E5100F585A4 /* APODTextDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2887D3292C610E5100F585A4 /* APODTextDetailsView.swift */; };
+		2887D32C2C6110FF00F585A4 /* APODImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2887D32B2C6110FF00F585A4 /* APODImageView.swift */; };
+		2887D32E2C61126900F585A4 /* Formatting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2887D32D2C61126900F585A4 /* Formatting.swift */; };
+		2887D3302C61242000F585A4 /* ContentAccessInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2887D32F2C61242000F585A4 /* ContentAccessInterface.swift */; };
+		2887D3322C61352600F585A4 /* Parsing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 285398242C5E5916003A6D63 /* Parsing.swift */; };
+		2887D3342C61727900F585A4 /* APODVideoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2887D3332C61727900F585A4 /* APODVideoView.swift */; };
+		2887D3362C61B56C00F585A4 /* APODDatePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2887D3352C61B56C00F585A4 /* APODDatePicker.swift */; };
+		2887D3382C628BF000F585A4 /* APODSmallDateDisplay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2887D3372C628BF000F585A4 /* APODSmallDateDisplay.swift */; };
+		2887D33C2C62B1A800F585A4 /* NetworkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2887D33B2C62B1A800F585A4 /* NetworkTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,7 +52,7 @@
 /* Begin PBXFileReference section */
 		285397B02C5D716D003A6D63 /* AstroPix.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AstroPix.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		285397B32C5D716D003A6D63 /* AstroPixApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AstroPixApp.swift; sourceTree = "<group>"; };
-		285397B52C5D716D003A6D63 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		285397B52C5D716D003A6D63 /* APODMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APODMainView.swift; sourceTree = "<group>"; };
 		285397B72C5D716D003A6D63 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		285397B92C5D716E003A6D63 /* AstroPix.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = AstroPix.entitlements; sourceTree = "<group>"; };
 		285397BB2C5D716E003A6D63 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -45,6 +61,22 @@
 		285397CB2C5D716E003A6D63 /* AstroPixUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AstroPixUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		285397CF2C5D716E003A6D63 /* AstroPixUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AstroPixUITests.swift; sourceTree = "<group>"; };
 		285397D12C5D716E003A6D63 /* AstroPixUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AstroPixUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		285397DE2C5D8820003A6D63 /* Networking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Networking.swift; sourceTree = "<group>"; };
+		285397E12C5D8BE7003A6D63 /* example1.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = example1.json; sourceTree = "<group>"; };
+		285397E42C5D8C2C003A6D63 /* example2.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = example2.json; sourceTree = "<group>"; };
+		285397E72C5D8C78003A6D63 /* example3.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = example3.json; sourceTree = "<group>"; };
+		285397EA2C5D8D95003A6D63 /* curl_convo.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = curl_convo.txt; sourceTree = "<group>"; };
+		285398242C5E5916003A6D63 /* Parsing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Parsing.swift; sourceTree = "<group>"; };
+		285398272C5E59A3003A6D63 /* ParsingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParsingTests.swift; sourceTree = "<group>"; };
+		2887D3262C6101F500F585A4 /* Caching.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Caching.swift; sourceTree = "<group>"; };
+		2887D3292C610E5100F585A4 /* APODTextDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APODTextDetailsView.swift; sourceTree = "<group>"; };
+		2887D32B2C6110FF00F585A4 /* APODImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APODImageView.swift; sourceTree = "<group>"; };
+		2887D32D2C61126900F585A4 /* Formatting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Formatting.swift; sourceTree = "<group>"; };
+		2887D32F2C61242000F585A4 /* ContentAccessInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentAccessInterface.swift; sourceTree = "<group>"; };
+		2887D3332C61727900F585A4 /* APODVideoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APODVideoView.swift; sourceTree = "<group>"; };
+		2887D3352C61B56C00F585A4 /* APODDatePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APODDatePicker.swift; sourceTree = "<group>"; };
+		2887D3372C628BF000F585A4 /* APODSmallDateDisplay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APODSmallDateDisplay.swift; sourceTree = "<group>"; };
+		2887D33B2C62B1A800F585A4 /* NetworkTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,7 +128,11 @@
 			isa = PBXGroup;
 			children = (
 				285397B32C5D716D003A6D63 /* AstroPixApp.swift */,
-				285397B52C5D716D003A6D63 /* ContentView.swift */,
+				285397B52C5D716D003A6D63 /* APODMainView.swift */,
+				2887D3282C610E3400F585A4 /* Subviews */,
+				2887D3312C61244E00F585A4 /* ContentAccess */,
+				2887D32D2C61126900F585A4 /* Formatting.swift */,
+				285397EA2C5D8D95003A6D63 /* curl_convo.txt */,
 				285397B72C5D716D003A6D63 /* Assets.xcassets */,
 				285397B92C5D716E003A6D63 /* AstroPix.entitlements */,
 				285397BA2C5D716E003A6D63 /* Preview Content */,
@@ -115,7 +151,10 @@
 		285397C42C5D716E003A6D63 /* AstroPixTests */ = {
 			isa = PBXGroup;
 			children = (
+				2875FA522C5EBE5A00C16D7E /* example_json */,
 				285397C52C5D716E003A6D63 /* AstroPixTests.swift */,
+				285398272C5E59A3003A6D63 /* ParsingTests.swift */,
+				2887D33B2C62B1A800F585A4 /* NetworkTests.swift */,
 			);
 			path = AstroPixTests;
 			sourceTree = "<group>";
@@ -127,6 +166,39 @@
 				285397D12C5D716E003A6D63 /* AstroPixUITestsLaunchTests.swift */,
 			);
 			path = AstroPixUITests;
+			sourceTree = "<group>";
+		};
+		2875FA522C5EBE5A00C16D7E /* example_json */ = {
+			isa = PBXGroup;
+			children = (
+				285397E12C5D8BE7003A6D63 /* example1.json */,
+				285397E42C5D8C2C003A6D63 /* example2.json */,
+				285397E72C5D8C78003A6D63 /* example3.json */,
+			);
+			path = example_json;
+			sourceTree = "<group>";
+		};
+		2887D3282C610E3400F585A4 /* Subviews */ = {
+			isa = PBXGroup;
+			children = (
+				2887D3292C610E5100F585A4 /* APODTextDetailsView.swift */,
+				2887D32B2C6110FF00F585A4 /* APODImageView.swift */,
+				2887D3332C61727900F585A4 /* APODVideoView.swift */,
+				2887D3372C628BF000F585A4 /* APODSmallDateDisplay.swift */,
+				2887D3352C61B56C00F585A4 /* APODDatePicker.swift */,
+			);
+			path = Subviews;
+			sourceTree = "<group>";
+		};
+		2887D3312C61244E00F585A4 /* ContentAccess */ = {
+			isa = PBXGroup;
+			children = (
+				2887D32F2C61242000F585A4 /* ContentAccessInterface.swift */,
+				2887D3262C6101F500F585A4 /* Caching.swift */,
+				285397DE2C5D8820003A6D63 /* Networking.swift */,
+				285398242C5E5916003A6D63 /* Parsing.swift */,
+			);
+			path = ContentAccess;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -242,6 +314,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				285397E92C5D8C78003A6D63 /* example3.json in Resources */,
+				285397E32C5D8BE7003A6D63 /* example1.json in Resources */,
+				285397E62C5D8C2C003A6D63 /* example2.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -259,8 +334,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				285397B62C5D716D003A6D63 /* ContentView.swift in Sources */,
+				285398252C5E5916003A6D63 /* Parsing.swift in Sources */,
+				2887D32C2C6110FF00F585A4 /* APODImageView.swift in Sources */,
+				2887D3342C61727900F585A4 /* APODVideoView.swift in Sources */,
+				285397DF2C5D8820003A6D63 /* Networking.swift in Sources */,
+				2887D3362C61B56C00F585A4 /* APODDatePicker.swift in Sources */,
+				285397B62C5D716D003A6D63 /* APODMainView.swift in Sources */,
+				2887D3382C628BF000F585A4 /* APODSmallDateDisplay.swift in Sources */,
+				2887D3272C6101F500F585A4 /* Caching.swift in Sources */,
+				2887D32A2C610E5100F585A4 /* APODTextDetailsView.swift in Sources */,
+				2887D32E2C61126900F585A4 /* Formatting.swift in Sources */,
 				285397B42C5D716D003A6D63 /* AstroPixApp.swift in Sources */,
+				2887D3302C61242000F585A4 /* ContentAccessInterface.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -268,6 +353,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				285398282C5E59A3003A6D63 /* ParsingTests.swift in Sources */,
+				2887D3322C61352600F585A4 /* Parsing.swift in Sources */,
+				2887D33C2C62B1A800F585A4 /* NetworkTests.swift in Sources */,
 				285397C62C5D716E003A6D63 /* AstroPixTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -434,7 +522,7 @@
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 14.5;
@@ -472,7 +560,7 @@
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 14.5;
@@ -496,7 +584,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = EQ9UUL88US;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				MACOSX_DEPLOYMENT_TARGET = 14.5;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.fourteetoh.AstroPixTests;
@@ -519,7 +607,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = EQ9UUL88US;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				MACOSX_DEPLOYMENT_TARGET = 14.5;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.fourteetoh.AstroPixTests;
@@ -541,13 +629,14 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = EQ9UUL88US;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				MACOSX_DEPLOYMENT_TARGET = 14.5;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.fourteetoh.AstroPixUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -563,13 +652,14 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = EQ9UUL88US;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				MACOSX_DEPLOYMENT_TARGET = 14.5;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.fourteetoh.AstroPixUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
