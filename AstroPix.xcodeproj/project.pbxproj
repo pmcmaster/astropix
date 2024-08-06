@@ -30,6 +30,7 @@
 		2887D3362C61B56C00F585A4 /* APODDatePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2887D3352C61B56C00F585A4 /* APODDatePicker.swift */; };
 		2887D3382C628BF000F585A4 /* APODSmallDateDisplay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2887D3372C628BF000F585A4 /* APODSmallDateDisplay.swift */; };
 		2887D33C2C62B1A800F585A4 /* NetworkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2887D33B2C62B1A800F585A4 /* NetworkTests.swift */; };
+		2887D33E2C62BF5A00F585A4 /* APODHelpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2887D33D2C62BF5A00F585A4 /* APODHelpView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -77,6 +78,7 @@
 		2887D3352C61B56C00F585A4 /* APODDatePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APODDatePicker.swift; sourceTree = "<group>"; };
 		2887D3372C628BF000F585A4 /* APODSmallDateDisplay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APODSmallDateDisplay.swift; sourceTree = "<group>"; };
 		2887D33B2C62B1A800F585A4 /* NetworkTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkTests.swift; sourceTree = "<group>"; };
+		2887D33D2C62BF5A00F585A4 /* APODHelpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APODHelpView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -182,6 +184,7 @@
 			isa = PBXGroup;
 			children = (
 				2887D3292C610E5100F585A4 /* APODTextDetailsView.swift */,
+				2887D33D2C62BF5A00F585A4 /* APODHelpView.swift */,
 				2887D32B2C6110FF00F585A4 /* APODImageView.swift */,
 				2887D3332C61727900F585A4 /* APODVideoView.swift */,
 				2887D3372C628BF000F585A4 /* APODSmallDateDisplay.swift */,
@@ -336,6 +339,7 @@
 			files = (
 				285398252C5E5916003A6D63 /* Parsing.swift in Sources */,
 				2887D32C2C6110FF00F585A4 /* APODImageView.swift in Sources */,
+				2887D33E2C62BF5A00F585A4 /* APODHelpView.swift in Sources */,
 				2887D3342C61727900F585A4 /* APODVideoView.swift in Sources */,
 				285397DF2C5D8820003A6D63 /* Networking.swift in Sources */,
 				2887D3362C61B56C00F585A4 /* APODDatePicker.swift in Sources */,
