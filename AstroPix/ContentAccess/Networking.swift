@@ -28,11 +28,23 @@ class APODAPIKeyStore {
             debugPrint("Using cached API key")
             return cachedKey }
         let (data, response) = try await URLSession.shared.data(from: URL(string: APIURL)!)
-        if let rawKey = String(data: data, encoding: .utf8) {
-            let cleanedKey = rawKey.replacingOccurrences(of: "\n", with: "")
-            debugPrint("Fetched API key: \(cleanedKey)")
-            Self.API_Key = cleanedKey
-            return cleanedKey
+        
+        guard let httpResponse = response as? HTTPURLResponse else {
+            debugPrint("No HTTP response")
+            throw APODNetworkError.noHTTPResponse
+        }
+        switch httpResponse.statusCode {
+        case 200...299:
+            debugPrint("Good response code \(httpResponse.statusCode) for API key fetch")
+            if let rawKey = String(data: data, encoding: .utf8) {
+                let cleanedKey = rawKey.replacingOccurrences(of: "\n", with: "")
+                debugPrint("Fetched API key: \(cleanedKey)")
+                Self.API_Key = cleanedKey
+                return cleanedKey
+            }
+        default:
+            debugPrint("HTTP error (status code \(httpResponse.statusCode)) for API key fetch")
+            throw APODNetworkError.badHTTPReturnCode
         }
         return nil
     }
