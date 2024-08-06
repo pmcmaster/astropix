@@ -102,7 +102,7 @@ struct APODMainView: View {
             }
             .tabItem {
                 Label(
-                    title: { Text("Today").font(.caption) },
+                    title: { Text("APOD") },
                     icon: { Image(systemName: "moon.fill") })
             }
             .onChange(of: targetDate) { newDate in
@@ -117,6 +117,14 @@ struct APODMainView: View {
                     update(for: Date.now)
                 }
                 isFirstLoad = false
+            }
+            Group {
+                APODHelpView()
+            }
+            .tabItem {
+                Label(
+                    title: { Text("Help") },
+                    icon: { Image(systemName: "questionmark.circle")})
             }
         }
     }
