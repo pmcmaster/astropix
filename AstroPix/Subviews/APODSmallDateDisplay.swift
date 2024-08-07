@@ -26,13 +26,13 @@ struct APODSmallDateDisplay: View {
     
     var formattedCurrentImageDate: String {
         if let currentImageDate = currentImageDate {
-           return APODFormattingHelpers.iso8601DateFormatter.string(from: currentImageDate)
+            return currentImageDate.asISO8601String()
         }
         return "Select date"
     }
     
     var formattedTargetDate: String {
-        APODFormattingHelpers.iso8601DateFormatter.string(from: targetDate)
+        return targetDate.asISO8601String()
     }
     
     var disableNextDayButton: Bool {
@@ -46,6 +46,7 @@ struct APODSmallDateDisplay: View {
             }
             Button(action: dateTapAction) {
                 Text(formattedCurrentImageDate)
+                    .fontWeight(.bold)
             }.padding(.horizontal)
             Button(action: incrementDate) {
                 Image(systemName: "arrow.forward")
