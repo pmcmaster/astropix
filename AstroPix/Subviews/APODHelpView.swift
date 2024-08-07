@@ -36,6 +36,6 @@ struct APODHelpView: View {
     }
 }
 
-#Preview {
+#Preview("Help details") {
     APODHelpView()
 }

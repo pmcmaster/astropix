@@ -40,14 +40,14 @@ struct APODDatePicker: View {
     }
 }
 
-#Preview {
+#Preview("Date picker") {
     @State var date = Date.now
     @State var datePickerShown = true
     let anotherDate = Calendar.current.date(byAdding: .day, value: -3, to: date)!
     return APODDatePicker(date: $date, datePickerStatus: $datePickerShown, selectedDate: anotherDate)
 }
 
-#Preview {
+#Preview("Date picker in sheet") {
     @State var date = Date.now
     @State var datePickerShown = true
     let anotherDate = Calendar.current.date(byAdding: .day, value: -3, to: date)!

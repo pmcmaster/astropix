@@ -55,7 +55,7 @@ struct APODSmallDateDisplay: View {
     }
 }
 
-#Preview {
+#Preview("Small date picker") {
     @State var targetDate = Date.now
     let anotherDate = Calendar.current.date(byAdding: .day, value: -3, to: targetDate)!
     return VStack {

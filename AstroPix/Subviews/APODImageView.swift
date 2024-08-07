@@ -46,10 +46,6 @@ struct APODCloseButton: View {
     }
 }
 
-#Preview {
-    return APODCloseButton { debugPrint("Close button tapped") }
-}
-
 struct APODImageView: View {
     let image: UIImage
     
@@ -75,8 +71,12 @@ struct APODImageView: View {
     }
 }
 
-#Preview {
+#Preview("Basic image view") {
     let sampleImage = UIImage(named: "sample_image")!
     return APODImageView(image: sampleImage)
+}
+
+#Preview("Close button") {
+    return APODCloseButton { debugPrint("Close button tapped") }
 }
 

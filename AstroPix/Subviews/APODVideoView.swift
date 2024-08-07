@@ -62,7 +62,7 @@ struct APODVideoView: View {
     }
 }
 
-#Preview {
+#Preview("Video preview") {
     let sampleImage = UIImage(named: "sample_image")!
     let sampleVideoURL = URL(string: "https://www.youtube.com/embed/1R5QqhPq1Ik?rel=0")!
     return APODVideoView(image: sampleImage, videoURL: sampleVideoURL)
