@@ -9,12 +9,10 @@ import SwiftUI
 
 @main
 struct AstroPixApp: App {
+    
     var body: some Scene {
         WindowGroup {
             APODMainView()
-                .onAppear {
-                    debugPrint("Main View Appeared")
-                }
         }
     }
 }

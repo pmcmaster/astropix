@@ -9,11 +9,11 @@ import SwiftUI
 
 struct APODDatePicker: View {
     @Binding var date: Date
-    @Binding var datePickerStatus: Bool
+    @Binding var showDatePicker: Bool
     @State var selectedDate: Date
     
     let startDate = APODFormattingHelpers.iso8601DateFormatter.date(from: "1995-06-16")!
-    let endDate = Date.now // TODO: Only if after 12:00 or so Eastern time
+    let endDate = Date.now // TODO: Only if after 12:00 or so Eastern time?
     
     var formattedDisplayDate: String {
         APODFormattingHelpers.iso8601DateFormatter.string(from: selectedDate)
@@ -25,7 +25,7 @@ struct APODDatePicker: View {
                 Spacer()
                 Button(action: {
                     $date.wrappedValue = selectedDate
-                    $datePickerStatus.wrappedValue = false
+                    $showDatePicker.wrappedValue = false
                 }) {
                     Text("Fetch \(formattedDisplayDate)")
                         .fontWeight(.bold)
@@ -44,7 +44,7 @@ struct APODDatePicker: View {
     @State var date = Date.now
     @State var datePickerShown = true
     let anotherDate = Calendar.current.date(byAdding: .day, value: -3, to: date)!
-    return APODDatePicker(date: $date, datePickerStatus: $datePickerShown, selectedDate: anotherDate)
+    return APODDatePicker(date: $date, showDatePicker: $datePickerShown, selectedDate: anotherDate)
 }
 
 #Preview("Date picker in sheet") {
@@ -54,7 +54,7 @@ struct APODDatePicker: View {
     let randomStack = VStack {
         Text("Random text")
     }.sheet(isPresented: $datePickerShown, content: {
-        APODDatePicker(date: $date, datePickerStatus: $datePickerShown, selectedDate: anotherDate)
+        APODDatePicker(date: $date, showDatePicker: $datePickerShown, selectedDate: anotherDate)
     })
     return randomStack
 }

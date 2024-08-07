@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		281A03642C640DC800456547 /* APODImageViewTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281A03632C640DC800456547 /* APODImageViewTab.swift */; };
+		281A03662C640E4900456547 /* APODHelpViewTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281A03652C640E4900456547 /* APODHelpViewTab.swift */; };
+		281A03682C641E6300456547 /* APODMediaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281A03672C641E6300456547 /* APODMediaView.swift */; };
 		285397B42C5D716D003A6D63 /* AstroPixApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 285397B32C5D716D003A6D63 /* AstroPixApp.swift */; };
 		285397B62C5D716D003A6D63 /* APODMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 285397B52C5D716D003A6D63 /* APODMainView.swift */; };
 		285397B82C5D716D003A6D63 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 285397B72C5D716D003A6D63 /* Assets.xcassets */; };
@@ -51,6 +54,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		281A03632C640DC800456547 /* APODImageViewTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APODImageViewTab.swift; sourceTree = "<group>"; };
+		281A03652C640E4900456547 /* APODHelpViewTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APODHelpViewTab.swift; sourceTree = "<group>"; };
+		281A03672C641E6300456547 /* APODMediaView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = APODMediaView.swift; path = AstroPix/Subviews/APODMediaView.swift; sourceTree = SOURCE_ROOT; };
 		285397B02C5D716D003A6D63 /* AstroPix.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AstroPix.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		285397B32C5D716D003A6D63 /* AstroPixApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AstroPixApp.swift; sourceTree = "<group>"; };
 		285397B52C5D716D003A6D63 /* APODMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APODMainView.swift; sourceTree = "<group>"; };
@@ -105,6 +111,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		281A03622C640DAE00456547 /* View tabs */ = {
+			isa = PBXGroup;
+			children = (
+				281A03632C640DC800456547 /* APODImageViewTab.swift */,
+				281A03652C640E4900456547 /* APODHelpViewTab.swift */,
+			);
+			path = "View tabs";
+			sourceTree = "<group>";
+		};
 		285397A72C5D716D003A6D63 = {
 			isa = PBXGroup;
 			children = (
@@ -130,6 +145,7 @@
 			children = (
 				285397B32C5D716D003A6D63 /* AstroPixApp.swift */,
 				285397B52C5D716D003A6D63 /* APODMainView.swift */,
+				281A03622C640DAE00456547 /* View tabs */,
 				2887D3282C610E3400F585A4 /* Subviews */,
 				2887D3312C61244E00F585A4 /* ContentAccess */,
 				2887D32D2C61126900F585A4 /* Formatting.swift */,
@@ -183,6 +199,7 @@
 			children = (
 				2887D3292C610E5100F585A4 /* APODTextDetailsView.swift */,
 				2887D33D2C62BF5A00F585A4 /* APODHelpView.swift */,
+				281A03672C641E6300456547 /* APODMediaView.swift */,
 				2887D32B2C6110FF00F585A4 /* APODImageView.swift */,
 				2887D3332C61727900F585A4 /* APODVideoView.swift */,
 				2887D3372C628BF000F585A4 /* APODSmallDateDisplay.swift */,
@@ -341,11 +358,14 @@
 				2887D3342C61727900F585A4 /* APODVideoView.swift in Sources */,
 				285397DF2C5D8820003A6D63 /* Networking.swift in Sources */,
 				2887D3362C61B56C00F585A4 /* APODDatePicker.swift in Sources */,
+				281A03662C640E4900456547 /* APODHelpViewTab.swift in Sources */,
 				285397B62C5D716D003A6D63 /* APODMainView.swift in Sources */,
 				2887D3382C628BF000F585A4 /* APODSmallDateDisplay.swift in Sources */,
+				281A03642C640DC800456547 /* APODImageViewTab.swift in Sources */,
 				2887D3272C6101F500F585A4 /* Caching.swift in Sources */,
 				2887D32A2C610E5100F585A4 /* APODTextDetailsView.swift in Sources */,
 				2887D32E2C61126900F585A4 /* Formatting.swift in Sources */,
+				281A03682C641E6300456547 /* APODMediaView.swift in Sources */,
 				285397B42C5D716D003A6D63 /* AstroPixApp.swift in Sources */,
 				2887D3302C61242000F585A4 /* ContentAccessInterface.swift in Sources */,
 			);

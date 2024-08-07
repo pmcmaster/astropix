@@ -9,14 +9,15 @@ import SwiftUI
 
 struct APODMainView: View {
     
-    @State private var targetDate = Date.now // This is the date for what we're going to try to show
+    @State private var date = Date.now
     
     @State private var image: UIImage?
     @State private var title: String?
-    @State private var displayDate: Date? // Date for what is currently showing (displayed on UI)
     @State private var explanation: String?
     @State private var copyright: String?
     @State private var videoURL: URL?
+    
+    @State private var notice: String?
     
     @State private var showDatePicker = false
     @State private var isLoading = false
@@ -34,7 +35,7 @@ struct APODMainView: View {
                 // It's easy to to UIImage -> Image and non-trivial to go Image -> UIImage, so easier to have UIImage passed around
                 image = loadedImage
             }
-            displayDate = imageDetails.date
+            date = imageDetails.date
             explanation = imageDetails.explanation
             copyright = imageDetails.copyright
             videoURL = imageDetails.videoURL
@@ -48,85 +49,32 @@ struct APODMainView: View {
         Task {
             if let (imageDetails, imageData) = try? await contentAccessor.fetchAPOD(for: newDate) {
                 update(with: imageDetails, displaying: imageData)
-            } else if let (imageDetails, imageData) = try? await contentAccessor.fetchLastGoodAPOD() {
-                update(with: imageDetails, displaying: imageData)
+            } else {
+                // TODO: Notify user at this point of loading last good image
+                if let (imageDetails, imageData) = try? await contentAccessor.fetchLastGoodAPOD() {
+                    update(with: imageDetails, displaying: imageData)
+                }
             }
         }
     }
     
     var body: some View {
         TabView {
-            Group {
-                if isLoading {
-                    HStack {
-                        ProgressView()
-                            .progressViewStyle(.circular)
-                        Text("Loading info for \(targetDate.asISO8601String())...")
-                            .padding()
-                    }
-                } else {
-                    VStack {
-                        if let image = image, let title = title, let explanation = explanation {
-                            if let videoURL = videoURL {
-                                APODVideoView(image: image, videoURL: videoURL)
-                            } else {
-                                APODImageView(image: image)
-                            }
-                            APODSmallDateDisplay(targetDate: $targetDate, currentImageDate: displayDate) {
-                                showDatePicker = true
-                            }
-                            APODTextDetailsView(title: title, explanation: explanation, copyright: copyright)
-                                .padding(.bottom)
-                                .padding(.horizontal)
-                            
-                        } else {
-                            if image == nil {
-                                Text("No data… so far")
-                                    .font(.title)
-                                    .padding()
-                            } else {
-                                Text("Where to next?")
-                                    .font(.title)
-                                    .padding()
-                            }
-                            Text("Select a date to start your Astronomical Journey…")
-                                .font(.caption)
-                            APODDatePicker(date: $targetDate, datePickerStatus: $showDatePicker, selectedDate: displayDate ?? targetDate)
-                                .padding()
-                        }
-                    }
-                    .ignoresSafeArea(edges: .horizontal)
-                    .sheet(isPresented: $showDatePicker) {
-                        APODDatePicker(date: $targetDate, datePickerStatus: $showDatePicker, selectedDate: displayDate ?? targetDate)
-                    }
-                }
-            }
-            .tabItem {
-                Label(
-                    title: { Text("APOD") },
-                    icon: { Image(systemName: "moon.fill") })
-            }
-            .onChange(of: targetDate) { newDate in
-                debugPrint("New target date: \(newDate)")
-                update(for: newDate)
-            }
-            .onAppear {
-                if isFirstLoad {
+            APODImageViewTab(date: $date, image: image, title: title, explanation: explanation, copyright: copyright, videoURL: videoURL, isLoading: isLoading)
+            APODHelpViewTab()
+        }
+        .onChange(of: date) { newDate in
+            debugPrint("New target date: \(newDate)")
+            update(for: newDate)
+        }
+        .onAppear {
+            if isFirstLoad {
 #if DEBUG
-                    contentAccessor.showCacheDirectoryContents()
+                contentAccessor.showCacheDirectoryContents()
 #endif
-                    update(for: Date.now)
-                }
-                isFirstLoad = false
+                update(for: Date.now)
             }
-            Group {
-                APODHelpView()
-            }
-            .tabItem {
-                Label(
-                    title: { Text("Help") },
-                    icon: { Image(systemName: "questionmark.circle")})
-            }
+            isFirstLoad = false
         }
     }
 }
