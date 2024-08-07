@@ -7,10 +7,6 @@
 
 import Foundation
 
-// Full-blown caching implementation is described at https://www.swiftbysundell.com/articles/caching-in-swift/
-// Would be useful if app has more than one single image to display,
-// but coding a basic cache from scratch for now, since only have one image at a time in the app
-
 struct APODLastGoodLoadInfo: Codable {
     let date: Date
 }
