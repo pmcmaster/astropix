@@ -23,6 +23,20 @@ struct APODWebViewForVideo: UIViewRepresentable {
     }
 }
 
+struct APODShadowPlayButton: View {
+    var body: some View {
+        ZStack {
+            Image(systemName: "circle.fill")
+                .font(.system(size: 150))
+                .blur(radius: /*@START_MENU_TOKEN@*/3.0/*@END_MENU_TOKEN@*/)
+                .foregroundColor(.black)
+            Image(systemName: "play.fill")
+                .font(.system(size: 100.0))
+                .foregroundColor(.white)
+        }.opacity(0.7)
+    }
+}
+
 struct APODVideoView: View {
     let image: UIImage
     let videoURL: URL
@@ -30,9 +44,6 @@ struct APODVideoView: View {
     @State var showFullVideoView = false
     
     var body: some View {
-        if showFullVideoView {
-            
-        }
         VStack {
             if showFullVideoView {
                 APODWebViewForVideo(url: videoURL)
@@ -42,15 +53,7 @@ struct APODVideoView: View {
                         .resizable()
                         .scaledToFit()
                         .ignoresSafeArea(edges: .horizontal)
-                    ZStack {
-                        Image(systemName: "circle.fill")
-                            .font(.system(size: 150))
-                            .blur(radius: /*@START_MENU_TOKEN@*/3.0/*@END_MENU_TOKEN@*/)
-                            .foregroundColor(.black)
-                        Image(systemName: "play.fill")
-                            .font(.system(size: 100.0))
-                            .foregroundColor(.white)
-                    }.opacity(0.7)
+                    APODShadowPlayButton()
                 }.onTapGesture {
                     showFullVideoView = true
                 }
