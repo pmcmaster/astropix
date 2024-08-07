@@ -21,12 +21,9 @@ enum APODNetworkError: Error {
 class APODAPIKeyStore {
 
     // Would ideally store the API key in CloudKit
-    static let APIURL = "https://fourteetoh.com/Jh0xx.txt"
+    static let APIURL = "https://fourteetoh.com/api_key_2024-08-02.txt"
     
-    static func apiKey() async throws -> String? {
-        if let cachedKey = Self.API_Key {
-            debugPrint("Using cached API key")
-            return cachedKey }
+    private static func fetchScrambledAPIKey() async throws -> String? {
         let (data, response) = try await URLSession.shared.data(from: URL(string: APIURL)!)
         
         guard let httpResponse = response as? HTTPURLResponse else {
@@ -37,14 +34,33 @@ class APODAPIKeyStore {
         case 200...299:
             debugPrint("Good response code \(httpResponse.statusCode) for API key fetch")
             if let rawKey = String(data: data, encoding: .utf8) {
-                let cleanedKey = rawKey.replacingOccurrences(of: "\n", with: "")
-                debugPrint("Fetched API key: \(cleanedKey)")
-                Self.API_Key = cleanedKey
-                return cleanedKey
+                debugPrint("Fetched raw API key: \(rawKey)")
+                return rawKey
             }
         default:
             debugPrint("HTTP error (status code \(httpResponse.statusCode)) for API key fetch")
             throw APODNetworkError.badHTTPReturnCode
+        }
+        return nil
+    }
+    
+    private static func descrambleAPIKey(_ rawKey: String) -> String {
+        let cleanedKey = rawKey.replacingOccurrences(of: "\n", with: "")
+        let trimmedKey = String(cleanedKey.suffix(38))
+        let finalKey = trimmedKey + "xx"
+        debugPrint("Descrambled to API key: \(finalKey)")
+        return finalKey
+    }
+    
+    static func apiKey() async throws -> String? {
+        if let cachedKey = Self.API_Key {
+            debugPrint("Using cached API key")
+            return cachedKey }
+        
+        if let scrambledAPIKey = try await fetchScrambledAPIKey() {
+            let unscrambledKey = descrambleAPIKey(scrambledAPIKey)
+            Self.API_Key = unscrambledKey
+            return unscrambledKey
         }
         return nil
     }

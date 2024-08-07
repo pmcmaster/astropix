@@ -66,7 +66,6 @@
 		285397E12C5D8BE7003A6D63 /* example1.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = example1.json; sourceTree = "<group>"; };
 		285397E42C5D8C2C003A6D63 /* example2.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = example2.json; sourceTree = "<group>"; };
 		285397E72C5D8C78003A6D63 /* example3.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = example3.json; sourceTree = "<group>"; };
-		285397EA2C5D8D95003A6D63 /* curl_convo.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = curl_convo.txt; sourceTree = "<group>"; };
 		285398242C5E5916003A6D63 /* Parsing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Parsing.swift; sourceTree = "<group>"; };
 		285398272C5E59A3003A6D63 /* ParsingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParsingTests.swift; sourceTree = "<group>"; };
 		2887D3262C6101F500F585A4 /* Caching.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Caching.swift; sourceTree = "<group>"; };
@@ -134,7 +133,6 @@
 				2887D3282C610E3400F585A4 /* Subviews */,
 				2887D3312C61244E00F585A4 /* ContentAccess */,
 				2887D32D2C61126900F585A4 /* Formatting.swift */,
-				285397EA2C5D8D95003A6D63 /* curl_convo.txt */,
 				285397B72C5D716D003A6D63 /* Assets.xcassets */,
 				285397B92C5D716E003A6D63 /* AstroPix.entitlements */,
 				285397BA2C5D716E003A6D63 /* Preview Content */,

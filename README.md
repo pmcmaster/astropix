@@ -17,7 +17,7 @@ Similarly for running the tests, need to manually add the AstroPixTests or UI te
 
 ## Caveats
 #### API Key Security
-The API key I use to access APOD is not stored in the app, but is not very well hidden either. It's hosted in plain text on a server. Not secure. Any even slightly more sensitive usage, such as any form of personal data, would require more careful treatment.
+The API key I use to access APOD is not stored in the app, but is not very well hidden either. It's hosted (with some very superficial scrambling) on a server. Not secure. Any even slightly more sensitive usage, such as any form of personal data, would require more careful treatment.
 
 #### YouTube link
 Normally pressing on the YouTube logo at the bottom-right of the embedded player (in other apps) opens the video in at-least YouTube in the browser, or (if installed) in the YouTube app. That does not work in my webview player and I don't know why. Possibly some inter-app permissions entitlement missing?
