@@ -25,10 +25,35 @@ struct PhotoDetailView: UIViewRepresentable {
     }
 }
 
+struct APODCloseButton: View {
+    
+    let action: () -> Void
+    
+    var body: some View {
+        HStack {
+            Spacer()
+            VStack {
+                Button(action: action, label: {
+                    Image(systemName: "xmark.circle")
+                        .resizable()
+                        .scaledToFill()
+                        .frame(width: 40, height: 40)
+                })
+                .padding()
+                Spacer()
+            }
+        }
+    }
+}
+
+#Preview {
+    return APODCloseButton { debugPrint("Close button tapped") }
+}
+
 struct APODImageView: View {
     let image: UIImage
     
-    @State private var showFullScreen = false
+    @State var showFullScreen = false
     
     var body: some View {
         Image(uiImage: image)
@@ -41,17 +66,7 @@ struct APODImageView: View {
             .fullScreenCover(isPresented: $showFullScreen, content: {
                 ZStack {
                     PhotoDetailView(image: image)
-                    HStack {
-                        Spacer()
-                        VStack {
-                            Button(action: { showFullScreen = false }, label: {
-                                Image(systemName: "xmark.circle")
-                                    .imageScale(.large)
-                            })
-                            .padding()
-                            Spacer()
-                        }
-                    }
+                    APODCloseButton() { showFullScreen = false }
                 }
                 .onTapGesture(count: 2, perform: {
                     showFullScreen = false
@@ -64,3 +79,4 @@ struct APODImageView: View {
     let sampleImage = UIImage(named: "sample_image")!
     return APODImageView(image: sampleImage)
 }
+
