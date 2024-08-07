@@ -23,9 +23,9 @@ struct APODMainView: View {
     
     @State private var isFirstLoad = true
     
-    let contentAccessor = APODContentCache()
+    private let contentAccessor = APODContentCache()
     
-    func update(with imageDetails: APODResourceMetaInfo, displaying imageData: Data) {
+    private func update(with imageDetails: APODResourceMetaInfo, displaying imageData: Data) {
         DispatchQueue.main.async {
             isLoading = false
             title = imageDetails.title
@@ -41,7 +41,7 @@ struct APODMainView: View {
         }
     }
     
-    func update(for newDate: Date) {
+    private func update(for newDate: Date) {
         debugPrint("Update triggered with \(newDate)")
         isLoading = true
         showDatePicker = false
@@ -94,10 +94,11 @@ struct APODMainView: View {
                             APODDatePicker(date: $targetDate, datePickerStatus: $showDatePicker, selectedDate: displayDate ?? targetDate)
                                 .padding()
                         }
-                    }.ignoresSafeArea(edges: .horizontal)
-                        .sheet(isPresented: $showDatePicker) {
-                            APODDatePicker(date: $targetDate, datePickerStatus: $showDatePicker, selectedDate: displayDate ?? targetDate)
-                        }
+                    }
+                    .ignoresSafeArea(edges: .horizontal)
+                    .sheet(isPresented: $showDatePicker) {
+                        APODDatePicker(date: $targetDate, datePickerStatus: $showDatePicker, selectedDate: displayDate ?? targetDate)
+                    }
                 }
             }
             .tabItem {
