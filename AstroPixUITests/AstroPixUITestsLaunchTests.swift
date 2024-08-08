@@ -7,6 +7,7 @@
 
 import XCTest
 
+/// These are unchanged from the basic template provided, but run, and pass.
 final class AstroPixUITestsLaunchTests: XCTestCase {
 
     override class var runsForEachTargetApplicationUIConfiguration: Bool {

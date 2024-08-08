@@ -17,11 +17,11 @@ final class ParsingTests: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
 
-    func readDecodeExampleJson(from filename: String) -> Data {
+    func readDecodeExampleJson(from filename: String) throws -> APODResourceMetaInfo {
         let imageWithCopyrightInfo = Bundle(for: AstroPixTests.self).url(forResource: filename, withExtension: ".json")!
         debugPrint("\(imageWithCopyrightInfo)")
-        let data = try! Data(contentsOf: imageWithCopyrightInfo)
-        return data
+        let data = try Data(contentsOf: imageWithCopyrightInfo)
+        return try APODResourceDetail.decodedFrom(json: data)
     }
     
     func testTextCleanup() {
@@ -32,9 +32,18 @@ final class ParsingTests: XCTestCase {
     }
 
     func testDecodeImageWithCopyrightData() throws {
-        let data = readDecodeExampleJson(from: "example1")
-        let decodedData = try APODResourceDetail.decodedFrom(json: data)
+        let decodedData = try readDecodeExampleJson(from: "example1")
         XCTAssertEqual(decodedData.copyright, "Tunc Tezel")
+    }
+    
+    func testDecodeImage() throws {
+        let decodedData = try readDecodeExampleJson(from: "example2")
+        XCTAssertEqual(decodedData.title, "Time Spiral")
+    }
+    
+    func testDecodeVideo() throws {
+        let decodedData = try readDecodeExampleJson(from: "example3")
+        XCTAssertEqual(decodedData.videoURL, URL(string: "https://www.youtube.com/embed/1R5QqhPq1Ik?rel=0"))
     }
 
     func testPerformanceExample() throws {

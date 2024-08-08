@@ -8,28 +8,16 @@
 import SwiftUI
 
 struct APODMediaView: View {
-    let image: UIImage?
+    let image: UIImage
     let videoURL: URL?
     
     var body: some View {
-        if let image = image {
-            if let videoURL = videoURL {
-                APODVideoView(image: image, videoURL: videoURL)
-            } else {
-                APODImageView(image: image)
-            }
+        if let videoURL = videoURL {
+            APODVideoView(image: image, videoURL: videoURL)
         } else {
-            Image(systemName: "questionmark.circle")
-                .resizable()
-                .aspectRatio(contentMode: .fit)
-                .padding().padding()
-                .opacity(0.2)
+            APODImageView(image: image)
         }
     }
-}
-
-#Preview("Nothing to show") {
-    return APODMediaView(image: nil, videoURL: nil)
 }
 
 #Preview("Image") {

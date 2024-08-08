@@ -34,6 +34,10 @@
 		2887D3382C628BF000F585A4 /* APODSmallDateDisplay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2887D3372C628BF000F585A4 /* APODSmallDateDisplay.swift */; };
 		2887D33C2C62B1A800F585A4 /* NetworkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2887D33B2C62B1A800F585A4 /* NetworkTests.swift */; };
 		2887D33E2C62BF5A00F585A4 /* APODHelpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2887D33D2C62BF5A00F585A4 /* APODHelpView.swift */; };
+		289B45962C64F77A00E73862 /* Networking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 285397DE2C5D8820003A6D63 /* Networking.swift */; };
+		289B45972C64F7EF00E73862 /* ContentAccessInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2887D32F2C61242000F585A4 /* ContentAccessInterface.swift */; };
+		289B45982C64F7F300E73862 /* Caching.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2887D3262C6101F500F585A4 /* Caching.swift */; };
+		289B45992C64F80A00E73862 /* Formatting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2887D32D2C61126900F585A4 /* Formatting.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -376,9 +380,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				285398282C5E59A3003A6D63 /* ParsingTests.swift in Sources */,
+				289B45982C64F7F300E73862 /* Caching.swift in Sources */,
+				289B45962C64F77A00E73862 /* Networking.swift in Sources */,
 				2887D3322C61352600F585A4 /* Parsing.swift in Sources */,
 				2887D33C2C62B1A800F585A4 /* NetworkTests.swift in Sources */,
 				285397C62C5D716E003A6D63 /* AstroPixTests.swift in Sources */,
+				289B45992C64F80A00E73862 /* Formatting.swift in Sources */,
+				289B45972C64F7EF00E73862 /* ContentAccessInterface.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

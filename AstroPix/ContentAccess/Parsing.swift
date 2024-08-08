@@ -32,7 +32,7 @@ enum APODJSONParseError: Error {
     case videoMediaTypeWithNoVideoURL
 }
 
-enum APODSupportedMediaType : String, Decodable {
+enum APODSupportedMediaType : String, Codable {
     case image = "image"
     case video = "video"
     // According to code in API, can also be 'other', but that's not supported by this app,
@@ -71,7 +71,7 @@ extension String {
     }
 }
 
-struct APODResourceDetail: Decodable {
+struct APODResourceDetail: Codable {
     
     let title: String
     let explanation: String

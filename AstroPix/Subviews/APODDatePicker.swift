@@ -12,11 +12,11 @@ struct APODDatePicker: View {
     @Binding var showDatePicker: Bool
     @State var selectedDate: Date
     
-    let startDate = APODFormattingHelpers.iso8601DateFormatter.date(from: "1995-06-16")!
+    let startDate = Date.fromISO8601String("1995-06-16")!
     let endDate = Date.now // TODO: Only if after 12:00 or so Eastern time?
     
     var formattedDisplayDate: String {
-        APODFormattingHelpers.iso8601DateFormatter.string(from: selectedDate)
+        selectedDate.asISO8601String()
     }
     
     var body: some View {

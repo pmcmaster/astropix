@@ -24,6 +24,7 @@ struct APODProgressIndicator: View {
 }
 
 struct APODImageViewTab: View {
+    @Environment(\.horizontalSizeClass) var horizontalSizeClass
     
     @Binding var date: Date
     
@@ -38,32 +39,51 @@ struct APODImageViewTab: View {
     @State private var showDatePicker = false
     
     var body: some View {
-        VStack {
-            if let title = title, let explanation = explanation {
-                APODMediaView(image: image, videoURL: videoURL)
-                APODSmallDateDisplay(date: $date, dateTapAction: {
-                    showDatePicker = true
-                })
-                .sheet(isPresented: $showDatePicker) {
-                    APODDatePicker(date: $date, showDatePicker: $showDatePicker, selectedDate: $date.wrappedValue)
-                } // TODO: Move this to the SmallDateDisplay
-                APODTextDetailsView(title: title, explanation: explanation, copyright: copyright)
-                    .padding(.bottom)
-                    .padding(.horizontal)
-                
+        GeometryReader { geo in
+            if let title = title, let explanation = explanation, let image = image {
+                if geo.size.height < geo.size.width { // Very very very basic approach to nicer display on iPad
+                    HStack {
+                        APODMediaView(image: image, videoURL: videoURL)
+                        VStack {
+                            Spacer()
+                            APODSmallDateDisplay(date: $date, dateTapAction: {
+                                showDatePicker = true
+                            })
+                            .sheet(isPresented: $showDatePicker) {
+                                APODDatePicker(date: $date, showDatePicker: $showDatePicker, selectedDate: $date.wrappedValue)
+                            } // TODO: Move this to the SmallDateDisplay
+                            APODTextDetailsView(title: title, explanation: explanation, copyright: copyright)
+                                .padding(.bottom)
+                                .padding(.horizontal)
+                        }
+                    }
+                } else {
+                    VStack {
+                        APODMediaView(image: image, videoURL: videoURL)
+                        APODSmallDateDisplay(date: $date, dateTapAction: {
+                            showDatePicker = true
+                        })
+                        .sheet(isPresented: $showDatePicker) {
+                            APODDatePicker(date: $date, showDatePicker: $showDatePicker, selectedDate: $date.wrappedValue)
+                        }
+                        APODTextDetailsView(title: title, explanation: explanation, copyright: copyright)
+                            .padding(.bottom)
+                            .padding(.horizontal)
+                    }
+                }
             } else if !isLoading { // No title or explanation
-                Text("Where to next?")
-                    .font(.title)
-                    .padding()
-                Text("Select a date to start your Astronomical Journey…")
-                    .font(.caption)
-                APODDatePicker(date: $date, showDatePicker: $showDatePicker, selectedDate: $date.wrappedValue)
-                    .padding()
-            } else {
-                VStack {}
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                VStack {
+                    Text("Where to next?")
+                        .font(.title)
+                        .padding()
+                    Spacer()
+                }
+                    .onAppear() { showDatePicker = true }
+                    .sheet(isPresented: $showDatePicker) {
+                        APODDatePicker(date: $date, showDatePicker: $showDatePicker, selectedDate: $date.wrappedValue)
+                    }
             }
-        }
+        }.frame(maxWidth: .infinity)
         .opacity(isLoading ? 0.2 : 1.0)
         .overlay(
             Group {
@@ -78,6 +98,31 @@ struct APODImageViewTab: View {
                 title: { Text("APOD") },
                 icon: { Image(systemName: "moon.fill") })
         }
+    }
+}
+
+#Preview("Image and details") {
+    @State var targetDate = Date.now
+    let sampleImage = UIImage(named: "sample_image")!
+    return TabView {
+        APODImageViewTab(date: $targetDate, image: sampleImage, title: "Astronomy Photo", explanation: "This is a photo for preview purposes", copyright: "Photographer", videoURL: nil, isLoading: false)
+    }
+}
+
+#Preview("Image (no details)") {
+    @State var targetDate = Date.now
+    let sampleImage = UIImage(named: "sample_image")!
+    return TabView {
+        APODImageViewTab(date: $targetDate, image: sampleImage, title: nil, explanation: nil, copyright: nil, videoURL: nil, isLoading: false)
+    }
+}
+
+#Preview("Video and details") {
+    @State var targetDate = Date.now
+    let sampleImage = UIImage(named: "sample_image")!
+    let sampleVideoURL = URL(string: "https://www.youtube.com/embed/1R5QqhPq1Ik?rel=0")!
+    return TabView {
+        APODImageViewTab(date: $targetDate, image: sampleImage, title: "Astronomy Photo", explanation: "This is a photo for preview purposes", copyright: "Photographer", videoURL: sampleVideoURL, isLoading: false)
     }
 }
 
@@ -96,32 +141,6 @@ struct APODImageViewTab: View {
         APODImageViewTab(date: $targetDate, image: sampleImage, title: "Astronomy Photo", explanation: "This is a photo for preview purposes", copyright: "Photographer", videoURL: nil, isLoading: true)
     }
 }
-
-#Preview("Image (no details)") {
-    @State var targetDate = Date.now
-    let sampleImage = UIImage(named: "sample_image")!
-    return TabView {
-        APODImageViewTab(date: $targetDate, image: sampleImage, title: nil, explanation: nil, copyright: nil, videoURL: nil, isLoading: false)
-    }
-}
-
-#Preview("Image and details") {
-    @State var targetDate = Date.now
-    let sampleImage = UIImage(named: "sample_image")!
-    return TabView {
-        APODImageViewTab(date: $targetDate, image: sampleImage, title: "Astronomy Photo", explanation: "This is a photo for preview purposes", copyright: "Photographer", videoURL: nil, isLoading: false)
-    }
-}
-
-#Preview("Video and details") {
-    @State var targetDate = Date.now
-    let sampleImage = UIImage(named: "sample_image")!
-    let sampleVideoURL = URL(string: "https://www.youtube.com/embed/1R5QqhPq1Ik?rel=0")!
-    return TabView {
-        APODImageViewTab(date: $targetDate, image: sampleImage, title: "Astronomy Photo", explanation: "This is a photo for preview purposes", copyright: "Photographer", videoURL: sampleVideoURL, isLoading: false)
-    }
-}
-
 #Preview("Details only, no image") {
     @State var targetDate = Date.now
     return TabView {

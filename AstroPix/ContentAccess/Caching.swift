@@ -23,6 +23,14 @@ struct APODContentCache: APODContentAccessProtocol {
     
     // MARK: Public APIs
     
+    /// Fetch APOD info and image for a given `date`, checking in cache first, then (if required) making a network call
+    ///
+    /// Can throw in the case of (e.g.) network errors, or API failure. Cache retrieval problems themselves should not throw, and should fall-through to network access
+    ///
+    /// - Parameters:
+    ///     - date: Date to query APOD API for. If nil, fetch 'latest' info.
+    ///
+    /// - Returns: A tuple of `APODResourceMetaInfo`, which contains data associated with the image and `Data` which is the image data itself
     func fetchAPOD(for date: Date? = nil) async throws -> (APODResourceMetaInfo, Data) {
         let imageMetadata = try await fetchAPODMetadata(for: date)
         let imageData = try await fetchAPODImage(for: imageMetadata.date, from: imageMetadata.imageURL)
@@ -30,6 +38,14 @@ struct APODContentCache: APODContentAccessProtocol {
         return (imageMetadata, imageData)
     }
     
+    /// Fetch APOD info for `date`, checking in cache first, then (if required) making a network call
+    ///
+    /// Can throw in the case of (e.g.) network errors, or API failure. Cache retrieval problems themselves should not throw, and should fall-through to network access
+    ///
+    /// - Parameters:
+    ///     - date: Date to query APOD API for. If nil, fetch 'latest' info.
+    ///
+    /// - Returns: A `APODResourceMetaInfo`, which contains data associated with the image, including the URL of the image
     func fetchAPODMetadata(for date: Date? = nil) async throws -> (APODResourceMetaInfo) {
         if let date = date {
             if let cachedJSONData = cachedData(for: cacheMetaInfoURL(for: date)) {
@@ -50,7 +66,9 @@ struct APODContentCache: APODContentAccessProtocol {
         return imageMetadata
     }
     
-    func fetchAPODImage(for date: Date, from remoteURL: URL) async throws -> Data {
+    /// Fetch the image from the given `remoteURL`, after first checking if cached data is available.
+    /// `date` is used to save to the correctly named cache file, and for the initial cache lookup
+    private func fetchAPODImage(for date: Date, from remoteURL: URL) async throws -> Data {
         let cacheFileURL = cacheImageURL(for: date)
         if let cachedImageData = cachedData(for: cacheFileURL) {
             return cachedImageData
@@ -66,6 +84,11 @@ struct APODContentCache: APODContentAccessProtocol {
     
     // MARK: "Last good load" file
     
+    /// Fetch the most recently available APOD info and image, checking in cache. Cannot fall through to network as 'what was the last thing that worked' is undefinfined for network access if we don't have anything availble in the cache
+    ///
+    /// Can throw in the case of (e.g.) network errors, API failure or if this behaviour is not implementable by conforming instance
+    ///
+    /// - Returns: A tuple of `APODResourceMetaInfo`, which contains data associated with the image and `Data` which is the image data itself
     func fetchLastGoodAPOD() async throws -> (APODResourceMetaInfo, Data) {
         if let lastGoodDate = lastGoodLoadDate() {
             let (imageMetadata, imageData) = try await fetchAPOD(for: lastGoodDate)
@@ -74,6 +97,7 @@ struct APODContentCache: APODContentAccessProtocol {
         throw APODCacheError.noLastDataToLoad
     }
     
+    /// Clean up the prior saved image info and image, then update the 'what is the last good info' file to point to the new one, referencing `date`
     private func cleanupOnSuccessfulLoad(for date: Date) {
         if let previousGoodLoadDate = lastGoodLoadDate() {
             guard previousGoodLoadDate != date else { return }
@@ -87,6 +111,7 @@ struct APODContentCache: APODContentAccessProtocol {
         self.updateLatestAvailable(to: date)
     }
     
+    /// What is the date for which we have 'last good load' cached data?
     func lastGoodLoadDate() -> Date? {
         if let lastLoadInfoFilename = cacheURL(for: APODContentCache.lastAccessFilename) {
             if let lastGoodLoadData = try? Data(contentsOf: lastLoadInfoFilename) {
@@ -98,6 +123,7 @@ struct APODContentCache: APODContentAccessProtocol {
         return nil
     }
     
+    /// Update the small JSON file which holds a reference to which date was the last good load
     private func updateLatestAvailable(to date: Date) {
         if let lastLoadInfoFilename = cacheURL(for: APODContentCache.lastAccessFilename) {
             let info = APODLastGoodLoadInfo(date: date)
@@ -114,6 +140,7 @@ struct APODContentCache: APODContentAccessProtocol {
     
     // MARK: Local URLs for cached files
     
+    /// Load cached data from the given URL
     private func cachedData(for cacheFileURL: URL?) -> Data? {
         if let validURL = cacheFileURL {
             debugPrint("Checking for \(validURL)")
@@ -127,6 +154,7 @@ struct APODContentCache: APODContentAccessProtocol {
         return nil
     }
     
+    /// Folder for caching data. Created (as sub-folder of default .cachesDirectory for the application) on first access, if required.
     private func cacheFolderURL() -> URL? {
         let cacheFolderURL = try? FileManager.default.url(for: .cachesDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
             .appending(path: APODContentCache.cacheDirectoryName, directoryHint: .isDirectory)
@@ -136,6 +164,7 @@ struct APODContentCache: APODContentAccessProtocol {
         return cacheFolderURL
     }
     
+    /// URL for a file named `filename` in the cache directory
     private func cacheURL(for filename: String) -> URL? {
         if let cacheFolderURL = cacheFolderURL() {
             let fileURL = cacheFolderURL.appending(path: filename)
@@ -144,19 +173,24 @@ struct APODContentCache: APODContentAccessProtocol {
         return nil
     }
     
+    /// Cache URL for the image resource, for a given `date`
+    /// Thought about trying to save with same filetype as the remote image (.jpg, .png etc.), but not sure it will always have one.
+    /// Instead save as .data, and handle any errors converting that to a UIImage elsewhere
     private func cacheImageURL(for date: Date) -> URL? {
         // Thought about trying to save with same filetype as the remote image, but not sure it will always have one
-        let filename = APODFormattingHelpers.iso8601DateFormatter.string(from: date) + ".data"
+        let filename = date.asISO8601String() + ".data"
         return cacheURL(for: filename)
     }
     
+    /// Cache URL for the meta info for a given `date`
     private func cacheMetaInfoURL(for date: Date) -> URL? {
-        let filename = APODFormattingHelpers.iso8601DateFormatter.string(from: date) + ".json"
+        let filename = date.asISO8601String() + ".json"
         return cacheURL(for: filename)
     }
     
     
 #if DEBUG
+    /// Prints out the current contents of the cache folder. Lightweight check to verify cleanup is behaving as expected.
     func showCacheDirectoryContents() {
         if let cacheDir = cacheFolderURL() {
             if let dirContents = try? FileManager.default.contentsOfDirectory(atPath: cacheDir.path()) {
