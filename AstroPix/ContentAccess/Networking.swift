@@ -15,10 +15,11 @@ enum APODNetworkError: Error {
     case badHTTPReturnCode
     case noHTTPResponse
     case imageNotOnExpectedHost
+    case networkAccessorCannotFetchLastGood
     case noAPIKey
 }
 
-class APODAPIKeyStore {
+struct APODAPIKeyStore {
 
     // Would ideally store the API key in CloudKit
     static let APIURL = "https://fourteetoh.com/api_key_2024-08-02.txt"
@@ -68,22 +69,10 @@ class APODAPIKeyStore {
     private static var API_Key: String?
 }
 
-class APODNetworkAccessor: APODContentAccessProtocol {
+struct APODNetworkAccessor: APODContentAccessProtocol {
     
-    private func fetchResource(_ urlRequest: URLRequest) async throws -> Data {
-        let (data, response) = try await URLSession.shared.data(for: urlRequest)
-        guard let httpResponse = response as? HTTPURLResponse else {
-            debugPrint("No HTTP response")
-            throw APODNetworkError.noHTTPResponse
-        }
-        switch httpResponse.statusCode {
-        case 200...299:
-            debugPrint("Good response code \(httpResponse.statusCode) for \(urlRequest.url!)")
-            return data
-        default:
-            debugPrint("HTTP error (status code \(httpResponse.statusCode)) for \(urlRequest.url!)")
-            throw APODNetworkError.badHTTPReturnCode
-        }
+    func fetchLastGoodAPOD() async throws -> (APODResourceMetaInfo, Data) {
+        throw APODNetworkError.networkAccessorCannotFetchLastGood
     }
     
     func fetchAPODImage(from imageURL: URL) async throws -> Data {
@@ -91,14 +80,6 @@ class APODNetworkAccessor: APODContentAccessProtocol {
         let request = URLRequest(url: imageURL)
         let data = try await fetchResource(request)
         return data
-    }
-    
-    private func baseAPIURLComponents() -> URLComponents {
-        var components = URLComponents()
-        components.scheme = "https"
-        components.host = NASA_APOD_API_HOST
-        components.path = NASA_APOD_API_PATH
-        return components
     }
     
     func fetchAPODRawMetadata(for date: Date? = nil) async throws -> Data {
@@ -117,6 +98,30 @@ class APODNetworkAccessor: APODContentAccessProtocol {
         debugPrint("Fetching metadata from \(request)")
         let jsonData = try await fetchResource(request)
         return jsonData
+    }
+    
+    private func baseAPIURLComponents() -> URLComponents {
+        var components = URLComponents()
+        components.scheme = "https"
+        components.host = NASA_APOD_API_HOST
+        components.path = NASA_APOD_API_PATH
+        return components
+    }
+    
+    private func fetchResource(_ urlRequest: URLRequest) async throws -> Data {
+        let (data, response) = try await URLSession.shared.data(for: urlRequest)
+        guard let httpResponse = response as? HTTPURLResponse else {
+            debugPrint("No HTTP response")
+            throw APODNetworkError.noHTTPResponse
+        }
+        switch httpResponse.statusCode {
+        case 200...299:
+            debugPrint("Good response code \(httpResponse.statusCode) for \(urlRequest.url!)")
+            return data
+        default:
+            debugPrint("HTTP error (status code \(httpResponse.statusCode)) for \(urlRequest.url!)")
+            throw APODNetworkError.badHTTPReturnCode
+        }
     }
     
     func fetchAPODMetadata(for date: Date? = nil) async throws -> APODResourceMetaInfo {

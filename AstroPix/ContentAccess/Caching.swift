@@ -15,7 +15,7 @@ enum APODCacheError: Error {
     case noLastDataToLoad
 }
 
-class APODContentCache: APODContentAccessProtocol {
+struct APODContentCache: APODContentAccessProtocol {
     
     static let networkAccessor = APODNetworkAccessor()
     static let cacheDirectoryName = "last_good_load_cache"

@@ -59,7 +59,7 @@ struct APODMainView: View {
         .onChange(of: date) { newDate in
             debugPrint("New target date: \(newDate)")
             if isLoadingLatest {
-                debugPrint("Not updating - date changed due to initial load from latest")
+                debugPrint("Skipping update - date changed due to initial load from latest")
                 isLoadingLatest = false
             } else {
                 update(for: newDate)

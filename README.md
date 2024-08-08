@@ -25,10 +25,9 @@ Normally pressing on the YouTube logo at the bottom-right of the embedded player
 #### Post-processing of info returned from API
 Some of the text info returned from the APOD API is a bit messy. There's a minimal attempt to clean this up as follows:
 ###### Leading spaces
-Some of the entires for explanation, or copyright have leading whitespace ('_Like this') which makes the alighment of the text not look quite right. Have made some attempts to remove those.
+Some of the entires for explanation, or copyright have leading whitespace ('_Like this') which makes the alignment of the text not look quite right. Have made some attempts to remove those.
 ###### Extraneous info in the explanation
-In a slightly unpredctable way, the explanation text sometimes ends in a kind of notice or details which aren't really an explanation of the image. For example: [this image (31st of July)](https://apod.nasa.gov/apod/ap240731.html) has the text "New Mirror: APOD is now available from Brazil in Portuguese" included at the end of the 'explanation' field returned by the API. This seems to be separated from the main explanation by three spaces. There are other places where there are three spaces in explanations, sometimes with some old header-labels (Image Credit, Explanation, etc.). To attempt to clean this up I split the text up into chunks at the places where there are three spaces, then decide that the largest of the chunks is *the* explanation. Better approach would be to either commit a fix to the API itself, or download all the entries and analyse them.
-
+In a slightly unpredictable way, the explanation text sometimes ends in a kind of notice or details which aren't really an explanation of the image. For example: [this image (31st of July)](https://apod.nasa.gov/apod/ap240731.html) has the text "New Mirror: APOD is now available from Brazil in Portuguese" included at the end of the 'explanation' field returned by the API. This seems to be separated from the main explanation by three spaces. There are other places where there are three spaces in explanations, sometimes with some old header-labels (Image Credit, Explanation, etc.). To attempt to clean this up I split the text up into chunks at the places where there are three spaces, then decide that the largest of the chunks is *the* explanation. Better approach would be to either commit a fix to the API itself, or (as a separate exercise outside the app!) download all the entries and analyse them.
 ###### Double-spaces in the explanation
 Easier to deal with. Also some triple-spaces, which are also removed (see above).
 
@@ -41,7 +40,7 @@ Some things I thought about while building what I have so far, but didn't, as I'
 * Better error messaging to user on failures
 * Localisation of strings
 * Fall-back to parsing/fetching direct from APOD in case that the API fails (basically bypassing the API)
-* Intention, not *quite* achieved was that the APODContentCache and APODNetworkAccessor would have the same APIs, so you could drop the network accessor in instead of the cache, and have a working app (with no cache). Not beneficial enough to get this working as I'd hoped.
+* Intention was that the APODContentCache and APODNetworkAccessor would have the same APIs, so you could drop the network accessor in instead of the cache, and have a working app (with no cache). Not convinced this is 100% beneficial.
 * If we (here) try to access the image for "today", on Friday at 3am, it's still Thursday in the US, so no Friday image is published available yet. Would be nice to code some feedback about that into the app.
 
 ## Resources used
