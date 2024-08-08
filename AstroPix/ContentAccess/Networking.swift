@@ -101,25 +101,32 @@ class APODNetworkAccessor: APODContentAccessProtocol {
         return components
     }
     
-    func fetchAPODMetaData(for date: Date) async throws -> Data {
+    func fetchAPODRawMetadata(for date: Date? = nil) async throws -> Data {
         guard let apiKey = try await APODAPIKeyStore.apiKey() else { throw APODNetworkError.noAPIKey }
         var components = baseAPIURLComponents()
-        let dateString = APODFormattingHelpers.iso8601DateFormatter.string(from: date)
-        let queryParams = [
+        var queryParams = [
             URLQueryItem(name: "api_key", value: apiKey),
             URLQueryItem(name: "thumbs", value: "true"),
-            URLQueryItem(name: "date", value: dateString),
         ]
+        
+        if let dateString = date?.asISO8601String() {
+            queryParams.append(URLQueryItem(name: "date", value: dateString))
+        }
         components.queryItems = queryParams
         let request = URLRequest(url: components.url!)
         debugPrint("Fetching metadata from \(request)")
-        let data = try await fetchResource(request)
-        return data
+        let jsonData = try await fetchResource(request)
+        return jsonData
     }
     
-    func fetchAPOD(for date: Date) async throws -> (APODResourceMetaInfo, Data) {
-        let jsonData = try await fetchAPODMetaData(for: date)
-        let imageMetaInfo = try APODResourceDetail.decodedFrom(json: jsonData)
+    func fetchAPODMetadata(for date: Date? = nil) async throws -> APODResourceMetaInfo {
+        let jsonData = try await fetchAPODRawMetadata(for: date)
+        let decodedData = try APODResourceDetail.decodedFrom(json: jsonData)
+        return decodedData
+    }
+    
+    func fetchAPOD(for date: Date? = nil) async throws -> (APODResourceMetaInfo, Data) {
+        let imageMetaInfo = try await fetchAPODMetadata(for: date)
         let imageURL = imageMetaInfo.imageURL
         guard imageURL.host() == EXPECTED_APOD_IMAGE_HOST else {
             throw APODNetworkError.imageNotOnExpectedHost

@@ -11,9 +11,9 @@ import Foundation
 ///
 protocol APODContentAccessProtocol {
     
-    func fetchAPOD(for date: Date) async throws -> (APODResourceMetaInfo, Data)
+    func fetchAPOD(for date: Date?) async throws -> (APODResourceMetaInfo, Data)
     
-    func fetchAPODMetaData(for date: Date) async throws -> (Data)
+    func fetchAPODMetadata(for date: Date?) async throws -> (APODResourceMetaInfo)
     
 }
 

@@ -18,48 +18,42 @@ enum APODCacheError: Error {
 class APODContentCache: APODContentAccessProtocol {
     
     static let networkAccessor = APODNetworkAccessor()
+    static let cacheDirectoryName = "last_good_load_cache"
     static let lastAccessFilename = "last_loaded.json"
     
     // MARK: Public APIs
     
-    func fetchAPOD(for date: Date) async throws -> (APODResourceMetaInfo, Data) {
-        let jsonData = try await fetchAPODMetaData(for: date)
-        let imageMetaData = try APODResourceDetail.decodedFrom(json: jsonData)
-        let imageData = try await fetchAPODImage(for: date, from: imageMetaData.imageURL)
-        cleanupOnSuccessfulLoad(for: date)
-        return (imageMetaData, imageData)
+    func fetchAPOD(for date: Date? = nil) async throws -> (APODResourceMetaInfo, Data) {
+        let imageMetadata = try await fetchAPODMetadata(for: date)
+        let imageData = try await fetchAPODImage(for: imageMetadata.date, from: imageMetadata.imageURL)
+        cleanupOnSuccessfulLoad(for: imageMetadata.date)
+        return (imageMetadata, imageData)
     }
     
-    func fetchAPODMetaData(for date: Date) async throws -> (Data) {
-        let cacheFileURL = cacheMetaInfoURL(for: date)
-        if let validURL = cacheFileURL {
-            debugPrint("Checking for \(validURL)")
-            if let jsonData = try? Data(contentsOf: validURL) {
-                debugPrint("...found cached meta info.")
-                return jsonData
-            } else {
-                debugPrint("...cache miss for meta info.")
+    func fetchAPODMetadata(for date: Date? = nil) async throws -> (APODResourceMetaInfo) {
+        if let date = date {
+            if let cachedJSONData = cachedData(for: cacheMetaInfoURL(for: date)) {
+                if let loadedData = try? APODResourceDetail.decodedFrom(json: cachedJSONData) {
+                    return loadedData
+                } else {
+                    debugPrint("Error loading cached metadata")
+                }
             }
         }
         
-        let jsonDataFromNetwork = try await Self.networkAccessor.fetchAPODMetaData(for: date)
-        if let validURL = cacheFileURL {
+        let jsonDataFromNetwork = try await Self.networkAccessor.fetchAPODRawMetadata(for: date)
+        let imageMetadata = try APODResourceDetail.decodedFrom(json: jsonDataFromNetwork)
+        if let validURL = cacheMetaInfoURL(for: imageMetadata.date) {
             debugPrint("Saving meta data to \(validURL)...")
             try? jsonDataFromNetwork.write(to: validURL, options: [.atomic])
         }
-        return jsonDataFromNetwork
+        return imageMetadata
     }
     
     func fetchAPODImage(for date: Date, from remoteURL: URL) async throws -> Data {
         let cacheFileURL = cacheImageURL(for: date)
-        if let validURL = cacheFileURL {
-            debugPrint("Checking for \(validURL)")
-            if let imageData = try? Data(contentsOf: validURL) {
-                debugPrint("...found cached image.")
-                return imageData
-            } else {
-                debugPrint("...cache miss for image.")
-            }
+        if let cachedImageData = cachedData(for: cacheFileURL) {
+            return cachedImageData
         }
         
         let imageDataFromNetwork = try await Self.networkAccessor.fetchAPODImage(from: remoteURL)
@@ -70,17 +64,12 @@ class APODContentCache: APODContentAccessProtocol {
         return imageDataFromNetwork
     }
     
-    private func cacheFolderURL() -> URL? {
-        let cacheFolderURL = try? FileManager.default.url(for: .cachesDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
-        return cacheFolderURL
-    }
-    
     // MARK: "Last good load" file
     
     func fetchLastGoodAPOD() async throws -> (APODResourceMetaInfo, Data) {
         if let lastGoodDate = lastGoodLoadDate() {
-            let (imageMetaData, imageData) = try await fetchAPOD(for: lastGoodDate)
-            return (imageMetaData, imageData)
+            let (imageMetadata, imageData) = try await fetchAPOD(for: lastGoodDate)
+            return (imageMetadata, imageData)
         }
         throw APODCacheError.noLastDataToLoad
     }
@@ -125,13 +114,34 @@ class APODContentCache: APODContentAccessProtocol {
     
     // MARK: Local URLs for cached files
     
+    private func cachedData(for cacheFileURL: URL?) -> Data? {
+        if let validURL = cacheFileURL {
+            debugPrint("Checking for \(validURL)")
+            if let dataFromCache = try? Data(contentsOf: validURL) {
+                debugPrint("...found cache.")
+                return dataFromCache
+            } else {
+                debugPrint("...cache miss.")
+            }
+        }
+        return nil
+    }
+    
+    private func cacheFolderURL() -> URL? {
+        let cacheFolderURL = try? FileManager.default.url(for: .cachesDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
+            .appending(path: APODContentCache.cacheDirectoryName, directoryHint: .isDirectory)
+        if let cacheFolderURL = cacheFolderURL {
+            try? FileManager.default.createDirectory(at: cacheFolderURL, withIntermediateDirectories: false)
+        }
+        return cacheFolderURL
+    }
+    
     private func cacheURL(for filename: String) -> URL? {
         if let cacheFolderURL = cacheFolderURL() {
             let fileURL = cacheFolderURL.appending(path: filename)
             return fileURL
         }
         return nil
-        
     }
     
     private func cacheImageURL(for date: Date) -> URL? {
