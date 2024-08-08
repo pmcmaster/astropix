@@ -1,25 +1,25 @@
 # AstroPix
 
 ### Basic Features
-🟢 Loads the latest image of the day on launch (by calling the API with no date, then fetching image based on that response)
-🟢 Displays date, title, explanation (and also copyright info, if it's there) and the image itself
-👍 Images can be tapped on to view larger/full-screen
-👎 Does **not** attempt to load the 'HD' version of the image. Some of these were huge.
-🟢 Videos are playable
-🟢 Uses Tab Bar
-🟢 Ability to select a particular date to load a different image, using either date picker or prev/next buttons
-🟢 Metadata and image data for successful calls is cached, and loaded as a fall-back in the case of any errors
+* [x] Loads the latest image of the day on launch (by calling the API with no date, then fetching image based on that response)
+* [x] Displays date, title, explanation (and also copyright info, if it's there) and the image itself
+* [x] Images can be tapped on to view larger/full-screen
+* [ ] Does **not** attempt to load the 'HD' version of the image. Some of these were huge.
+* [x] Videos are playable
+* [x] Uses Tab Bar
+* [x] Ability to select a particular date to load a different image, using either date picker or prev/next buttons
+* [x] Metadata and image data for successful calls is cached, and loaded as a fall-back in the case of any errors
 
 ### Bonus Features
-🟠 Very very basic attempt to display more sensibly in horizontal view, which would include on iPads
-🟢 Appears to work find in dark mode. I made no specific changes to achieve this; initial implementation does not reference any specific non-general colours (i.e., uses things like .accent and .tertiary instead of .black, .blue etc.), so seems to work quite nicely with dark mode
-❓ Have **not tested thoroughly with dynamic type sizes**. Similar to dark mode above, don't *think* have any hard sizes which would cause problems with dynamic type.
+* [x] Very very basic attempt to display more sensibly in horizontal view, which would include on iPads
+* [x] Appears to work find in dark mode. I made no specific changes to achieve this; initial implementation does not reference any specific non-general colours (i.e., uses things like .accent and .tertiary instead of .black, .blue etc.), so seems to work quite nicely with dark mode
+* [ ] Have **not tested thoroughly with dynamic type sizes**. Similar to dark mode above, don't *think* have any hard sizes which would cause problems with dynamic type.
 
 ### Additional
-🟢 Developed/tested targetting iOS 16.0. Also tested on actual phone (iOS 17.5.1)
-⭐️ No 3rd-party frameworks used
+* Developed/tested targetting iOS 16.0. Also tested on actual phone (iOS 17.5.1)
+* No 3rd-party frameworks used
 
-## Steps to build
+# Steps to build
 1. Clone repo as normal
 2. Open *AstroPix.xcodeproj* in XCode
 3. Within XCode, **Manage Schemes**, and add the basic AstroPix scheme. (Lack of this probably means I've excluded some important XCode project config from what's in github)
@@ -27,7 +27,7 @@
 5. **Build**
 Similarly for running the tests, need to manually add the AstroPixTests or UI tests (currently largely unused) schemes before you can run those.
 
-## What Would I Have Done Differently?
+# What Would I Have Done Differently?
 ...if I was doing it all over again, or in less of a rush. In no particular order.
 * Probably different name for the app!
 * Write docstrings as I go along, instead of trying to do them all at the end
@@ -35,7 +35,7 @@ Similarly for running the tests, need to manually add the AstroPixTests or UI te
 * More git commits along the way, particualrly earlier in the process, would have helped focus on one change at a time
 * More tests
 
-## Caveats
+# Caveats
 #### API Key Security
 The API key I use to access APOD is not stored in the app, but is not very well hidden either. It's hosted (with some very superficial scrambling) on a server. Not secure. Any even slightly more sensitive usage, such as any form of personal data, would require more careful treatment.
 
@@ -51,7 +51,7 @@ In a slightly unpredictable way, the explanation text sometimes ends in a kind o
 ###### Double-spaces in the explanation
 Easier to deal with. Also some triple-spaces, which are also removed (see above).
 
-## Would like to build
+# Would like to build
 Some things I thought about while building what I have so far, but didn't, as I'm trying not to get side-tracked, and stick to the brief.
 
 * A scrolling view which lazy-loads the small images. Tapping one of those would take you to the normal view
@@ -64,7 +64,7 @@ Some things I thought about while building what I have so far, but didn't, as I'
 * Intention was that the APODContentCache and APODNetworkAccessor would have the same APIs, so you could drop the network accessor in instead of the cache, and have a working app (with no cache). Not convinced this is 100% beneficial.
 * If we (here) try to access the image for "today", on Friday at 3am, it's still Thursday in the US, so no Friday image is published available yet. Would be nice to code some feedback about that into the app.
 
-## Particularly Useful Resources Consulted
+# Particularly Useful Resources Consulted
 * https://blog.jakelee.co.uk/an-introduction-to-the-nasa-apod-api/ -- Good overview of the API with some interesting wrinkles pointed out
 * https://www.swiftbysundell.com/articles/caching-in-swift/ -- Did not end up using this approach to caching in the end, but would be better, easier to manage, approach if caching more than one image.
 * https://www.swiftyplace.com/blog/swiftui-sheets-modals-bottom-sheets-fullscreen-presentation-in-ios -- Useful primer/refresher on sheets
